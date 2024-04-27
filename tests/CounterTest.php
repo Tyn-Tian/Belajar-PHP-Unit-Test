@@ -9,36 +9,39 @@ use PHPUnit\Framework\Attributes\Depends;
 
 class CounterTest extends TestCase 
 {
+    private Counter $counter;
+
+    protected function setUp(): void 
+    {
+        $this->counter = new Counter();
+        echo "Membuat Counter" . PHP_EOL;
+    }
+
     public function testCounter()
     {
-        $counter = new Counter();
+        $this->counter->increment();
+        Assert::assertEquals(1, $this->counter->getCounter());
 
-        $counter->increment();
-        Assert::assertEquals(1, $counter->getCounter());
+        $this->counter->increment();
+        $this->assertEquals(2, $this->counter->getCounter());
 
-        $counter->increment();
-        $this->assertEquals(2, $counter->getCounter());
-
-        $counter->increment();
-        self::assertEquals(3, $counter->getCounter());
+        $this->counter->increment();
+        self::assertEquals(3, $this->counter->getCounter());
     }
 
     #[Test]
     public function increment()
     {
-        $counter = new Counter();
-
-        $counter->increment();
-        $this->assertEquals(1, $counter->getCounter());
+        $this->counter->increment();
+        $this->assertEquals(1, $this->counter->getCounter());
     }
 
     public function testFirst(): Counter
     {
-        $counter = new Counter();
-        $counter->increment();
-        $this->assertEquals(1, $counter->getCounter());
+        $this->counter->increment();
+        $this->assertEquals(1, $this->counter->getCounter());
 
-        return $counter;
+        return $this->counter;
     }
 
     #[Depends('testFirst')]
@@ -46,5 +49,10 @@ class CounterTest extends TestCase
     {
         $counter->increment();
         $this->assertEquals(2, $counter->getCounter());
+    }
+
+    protected function tearDown(): void
+    {
+        echo "Tear Down" . PHP_EOL;
     }
 }
