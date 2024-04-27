@@ -1,0 +1,18 @@
+{
+    "name": "tynchristian/belajar-php-unit-test",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Tynchristian\\BelajarPhpUnitTest\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Christian",
+            "email": "kristian2015ok@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "11.1.3"
+    }
+}
