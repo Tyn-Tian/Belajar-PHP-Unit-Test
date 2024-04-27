@@ -4,6 +4,7 @@ namespace Christian\Test;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Attributes\Test;
 
 class CounterTest extends TestCase 
 {
@@ -19,5 +20,14 @@ class CounterTest extends TestCase
 
         $counter->increment();
         self::assertEquals(3, $counter->getCounter());
+    }
+
+    #[Test]
+    public function increment()
+    {
+        $counter = new Counter();
+
+        $counter->increment();
+        $this->assertEquals(1, $counter->getCounter());
     }
 }
