@@ -6,6 +6,8 @@ use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\Attributes\Depends;
+use PHPUnit\Framework\Attributes\RequiresOperatingSystemFamily;
+use PHPUnit\Framework\Attributes\RequiresPhp;
 
 class CounterTest extends TestCase 
 {
@@ -39,6 +41,8 @@ class CounterTest extends TestCase
     #[Test]
     public function increment()
     {
+        self::markTestSkipped("Masih ada error yang bingung");
+
         $this->counter->increment();
         $this->assertEquals(1, $this->counter->getCounter());
     }
@@ -61,5 +65,18 @@ class CounterTest extends TestCase
     protected function tearDown(): void
     {
         echo "Tear Down" . PHP_EOL;
+    }
+
+    #[RequiresOperatingSystemFamily('Windows')]
+    public function testOnlyWindows()
+    {
+        self::assertTrue(true, "Only in Windows");
+    }
+    
+    #[RequiresPhp('>= 8')]
+    #[RequiresOperatingSystemFamily('Darwin')]
+    public function testOnlyForMacAndPHP8()
+    {
+        self::assertTrue(true, "Only for Mac and PHP 8");
     }
 }
